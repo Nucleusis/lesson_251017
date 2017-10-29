@@ -7,7 +7,7 @@
         <h3>Room Calc</h3>
         <div id="calcOutput"></div>
         <script type="text/javascript">
-            function showRoom(roomResult) {
+            function showRoom(roomResult, i) {
                 var calcOutput = document.getElementById('calcOutput');
 
                 var roomOutput = document.createElement('div');
@@ -118,7 +118,7 @@
                 // console.log('    walls square:      ' + roomResult[i].walls.toFixed(2));
                 // console.log('    cost:              ' + roomResult[i].cost.toFixed(2));
                 // console.log('');
-                showRoom(roomResult);
+                showRoom(roomResult, i);
 
                 next = confirm('Another room?');
                 i++;
