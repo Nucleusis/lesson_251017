@@ -1,11 +1,55 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>JS</title>
+        <title>room calc</title>
     </head>
     <body>
-        <h1>JS</h1>
+        <h3>Room Calc</h3>
+        <div id="calcOutput"></div>
         <script type="text/javascript">
+            function showRoom(roomResult) {
+                var calcOutput = document.getElementById('calcOutput');
+
+                var roomOutput = document.createElement('div');
+                calcOutput.appendChild(roomOutput);
+
+                var roomTitle = document.createElement("h4");
+                roomTitle.innerHTML = 'room #' + (i + 1);
+                roomOutput.appendChild(roomTitle);
+
+                var roomContent = document.createElement('ul');
+                roomOutput.appendChild(roomContent);
+
+                var roomMaterials = document.createElement('li');
+                roomMaterials.innerHTML = 'action/matirials: ' + roomResult[i].materials.join(', ');
+                roomContent.appendChild(roomMaterials);
+
+                var roomPrice = document.createElement('li');
+                roomPrice.innerHTML = 'price for 1 m: ' + roomResult[i].price;
+                roomContent.appendChild(roomPrice);
+
+                var roomWalls = document.createElement('li');
+                roomWalls.innerHTML = 'walls square: ' + roomResult[i].walls.toFixed(2);
+                roomContent.appendChild(roomWalls);
+
+                var roomCost = document.createElement('li');
+                roomCost.innerHTML = 'cost:              ' + roomResult[i].cost.toFixed(2);
+                roomContent.appendChild(roomCost);
+            }
+
+            function showTotal(total) {
+                var calcOutput = document.getElementById('calcOutput');
+
+                var horizontalLine = document.createElement('hr');
+                calcOutput.appendChild(horizontalLine);
+
+                var totalOutput = document.createElement('h4');
+                totalOutput.innerHTML = 'Total cost: ' + total.toFixed(2);
+                calcOutput.appendChild(totalOutput);
+
+
+            }
+
             var room = {
                 width: 5,
                 length: 10,
@@ -31,7 +75,7 @@
                 }
             };
 
-            roomResult = [];
+            var roomResult = [];
             var i = 0;
             var next = true;
             while (next) {
@@ -47,7 +91,7 @@
 
                 var act = prompt('Enter an action ("wallpaper", "paint", "whitewash")', "wallpaper");
                 if (act == 'wallpaper') {
-                    var type = prompt('Enter type of wallpaper ("normal", "fabric", "vinly")', "normal");
+                    var type = prompt('Enter type of wallpaper ("normal", "fabric", "vinyl")', "normal");
                     if (type in room.meaterials.wallpaper) {
                         roomResult[i].materials = ['wallpaper', type];
                         roomResult[i].price = room.meaterials.wallpaper[type];
@@ -68,21 +112,25 @@
                     alert('Unknown action');
                 }
 
-                console.log('room #' + (i + 1));
-                console.log('    action/matirials:  ' + roomResult[i].materials.join(', '));
-                console.log('    price for 1 m:     ' + roomResult[i].price);
-                console.log('    walls square:      ' + roomResult[i].walls.toFixed(2));
-                console.log('    cost:              ' + roomResult[i].cost.toFixed(2));
-                console.log('');
+                // console.log('room #' + (i + 1));
+                // console.log('    action/matirials:  ' + roomResult[i].materials.join(', '));
+                // console.log('    price for 1 m:     ' + roomResult[i].price);
+                // console.log('    walls square:      ' + roomResult[i].walls.toFixed(2));
+                // console.log('    cost:              ' + roomResult[i].cost.toFixed(2));
+                // console.log('');
+                showRoom(roomResult);
+
                 next = confirm('Another room?');
                 i++;
             }
-            console.log('--------------------');
+
             var total = 0;
             for (var j = 0; j < roomResult.length; j++) {
                 total += roomResult[j].cost;
             }
-            console.log('Total cost: ' + total.toFixed(2));
+            // console.log('--------------------');
+            // console.log('Total cost: ' + total.toFixed(2));
+            showTotal(total);
 
         </script>
     </body>
